@@ -58,7 +58,7 @@ void AMyCharacterTest::Move(const FInputActionValue& Value)
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	AddMovementInput(ForwardDirection, MovementVector.Y * Speed * CrawlSpeed);
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-	AddMovementInput(RightDirection, MovementVector.X * Speed * CrawlSpeed * DodgeSpeed);
+	AddMovementInput(RightDirection, MovementVector.X * Speed * CrawlSpeed);
 	
 
 	//const FVector Forward = GetActorForwardVector();
@@ -108,6 +108,16 @@ void AMyCharacterTest::StopDodging()
 	Dodging = false;
 }
 
+void AMyCharacterTest::AirAtack()
+{
+	AirAtacking = true;
+}
+
+void AMyCharacterTest::AirAtackStop()
+{
+	AirAtacking = false;
+}
+
 // Called every frame
 void AMyCharacterTest::Tick(float DeltaTime)
 {
@@ -132,6 +142,10 @@ void AMyCharacterTest::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 		EnhancedInputComponent->BindAction(DodgeAction, ETriggerEvent::Started, this, &AMyCharacterTest::Dodge);
 		EnhancedInputComponent->BindAction(DodgeAction, ETriggerEvent::Completed, this, &AMyCharacterTest::StopDodging);
+
+		EnhancedInputComponent->BindAction(AirAtackAction, ETriggerEvent::Started, this, &AMyCharacterTest::AirAtack);
+		EnhancedInputComponent->BindAction(AirAtackAction, ETriggerEvent::Completed, this, &AMyCharacterTest::AirAtackStop);
+
 
 	}
 

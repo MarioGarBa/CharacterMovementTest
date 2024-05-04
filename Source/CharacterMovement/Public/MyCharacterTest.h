@@ -36,6 +36,9 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Movement")
 	bool Dodging;
 
+	UPROPERTY(BlueprintReadOnly, Category = "Movement")
+	bool AirAtacking;
+
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float Speed;
 	
@@ -81,6 +84,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Input)
 	UInputAction* DodgeAction;
 
+	UPROPERTY(EditAnywhere, Category = Input)
+	UInputAction* AirAtackAction;
+
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 	void Jump() override;
@@ -88,7 +94,8 @@ protected:
 	void StopCrawl();
 	void Dodge();
 	void StopDodging();
-
+	void AirAtack();
+	void AirAtackStop();
 
 };
 
